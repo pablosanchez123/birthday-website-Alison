@@ -96,14 +96,22 @@ const places = [
 
 // ── Fotos de pareja ───────────────────────────────────────────
 const photos = [
-  { file: '0e46fae0-86dd-4a22-80b4-1237d322cc3d.jpg', caption: 'mis favoritos 💕',      rot: -3   },
-  { file: '32e49936-e831-4eb7-b307-56a7ff57b6cb.jpg', caption: 'para siempre',          rot:  2   },
-  { file: '51e63ea1-6515-46fc-b932-9c1488fcedfc.jpg', caption: 'tú y yo nada más',      rot: -2   },
-  { file: '66a08500-1c2e-4b1c-b438-58f3ee28db2e.jpg', caption: 'así de bonito',         rot:  3.5 },
-  { file: '9cd2d045-dbaa-404b-bbe2-914b296f1ef7.jpg', caption: 'feliz de tenerte',      rot: -3.5 },
-  { file: 'c655aa2f-a893-4aa4-afed-d995e741c3cf.jpg', caption: 'mi todo ❤️',            rot:  1.5 },
-  { file: 'd431533d-e162-490a-ba10-9ceef4ce88dc.jpg', caption: 'cada momento contigo',  rot: -1.5 },
-  { file: 'ff805409-fdb4-486a-9432-73713a68a41a.jpg', caption: 'te quiero tanto',       rot:  4   },
+  { file: '0e46fae0-86dd-4a22-80b4-1237d322cc3d.jpg', caption: 'mis favoritos 💕',     rot: -8,  dx:  5, size: 'md' },
+  { file: '1192d73a-8f0f-473f-a044-41ab192b9f6b.jpg', caption: 'siempre juntos',       rot:  6,  dx: -4, size: 'lg' },
+  { file: '315e7639-8ecd-4a7a-a57f-313a3be5c3e9.jpg', caption: 'momentos así',         rot: -3,  dx:  7, size: 'md' },
+  { file: '32e49936-e831-4eb7-b307-56a7ff57b6cb.jpg', caption: 'para siempre',         rot: 11,  dx: -6, size: 'sm' },
+  { file: '51e63ea1-6515-46fc-b932-9c1488fcedfc.jpg', caption: 'tú y yo nada más',     rot: -12, dx:  3, size: 'md' },
+  { file: '66a08500-1c2e-4b1c-b438-58f3ee28db2e.jpg', caption: 'así de bonito',        rot:  4,  dx: -7, size: 'lg' },
+  { file: '79abe79d-8b18-4a2b-ae12-9231d1b32519.jpg', caption: 'mi lugar favorito',    rot:  8,  dx:  6, size: 'sm' },
+  { file: '7a042b39-6810-441a-8738-895f3ebec7e3.jpg', caption: 'te amo amor',          rot: -5,  dx: -3, size: 'md' },
+  { file: '82401029-a77a-4bab-8e8a-2de9ac59b6ba.jpg', caption: 'nuestro mundo',        rot: 12,  dx:  2, size: 'sm' },
+  { file: '8f622d7f-466d-4c4c-9a05-1febe5a5900b.jpg', caption: 'siempre tú',           rot: -9,  dx: -8, size: 'lg' },
+  { file: '9cd2d045-dbaa-404b-bbe2-914b296f1ef7.jpg', caption: 'feliz de tenerte',     rot:  5,  dx:  4, size: 'md' },
+  { file: 'a7b14bc6-fe71-41d3-ae8b-0715c7122ebf.jpg', caption: 'cada momento',         rot: -7,  dx: -2, size: 'sm' },
+  { file: 'c655aa2f-a893-4aa4-afed-d995e741c3cf.jpg', caption: 'mi todo ❤️',           rot: 13,  dx:  7, size: 'md' },
+  { file: 'd431533d-e162-490a-ba10-9ceef4ce88dc.jpg', caption: 'cada momento contigo', rot: -4,  dx: -5, size: 'lg' },
+  { file: 'e4693fed-68cb-4651-bb08-f0d4189b900f.jpg', caption: 'mi todo',              rot:  9,  dx:  5, size: 'sm' },
+  { file: 'ff805409-fdb4-486a-9432-73713a68a41a.jpg', caption: 'te quiero tanto',      rot: -11, dx: -4, size: 'md' },
 ];
 
 // ── Estado ────────────────────────────────────────────────────
@@ -165,7 +173,8 @@ function renderCards() {
 function renderAlbum() {
   const grid = document.getElementById('polaroidGrid');
   grid.innerHTML = photos.map(p => `
-    <div class="polaroid" style="--rot:${p.rot}deg">
+    <div class="polaroid size-${p.size}" style="--rot:${p.rot}deg;--dx:${p.dx}px">
+      <div class="polaroid-tape"></div>
       <div class="polaroid-img">
         <img src="images/fotos/${p.file}" alt="${p.caption}" loading="lazy" />
       </div>
@@ -177,10 +186,10 @@ function renderAlbum() {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const i = [...items].indexOf(entry.target);
-      setTimeout(() => entry.target.classList.add('visible'), i * 90);
+      setTimeout(() => entry.target.classList.add('visible'), i * 70);
       obs.unobserve(entry.target);
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05 });
 
   items.forEach(el => obs.observe(el));
 }
@@ -228,10 +237,17 @@ function initAnimations() {
   });
 
   // Cards stagger on load — sin ScrollTrigger para que nunca queden en opacity 0
-  gsap.from('.card', {
+  const cardTween = gsap.from('.card', {
     opacity: 0, y: 65, duration: 0.75, ease: 'power3.out',
     stagger: 0.07, delay: 0.3,
   });
+  // Red de seguridad: si el ticker se ralentiza (pestaña sin foco) y la animación
+  // se congela a medias, forzamos el estado final para que todas las tarjetas
+  // queden perfectamente alineadas en la grilla.
+  setTimeout(() => {
+    cardTween.progress(1).kill();
+    gsap.set('.card', { clearProps: 'transform,opacity' });
+  }, 2200);
 }
 
 // ── Love section animations ───────────────────────────────────
