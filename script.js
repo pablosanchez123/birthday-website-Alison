@@ -99,7 +99,6 @@ let selectedId = null;
 const swipers  = {};
 
 // ── Init ──────────────────────────────────────────────────────
-emailjs.init(EMAILJS_PUBLIC_KEY);
 gsap.registerPlugin(ScrollTrigger);
 
 renderCards();
@@ -285,6 +284,7 @@ async function sendChoice() {
   btn.textContent = 'Enviando… 💌';
 
   try {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       place_name:     place.name,
       place_location: place.location,
