@@ -41,7 +41,7 @@ const places = [
   {
     id: 3,
     name: 'Cabaña Boutique AMORA',
-    location: 'Naturaleza',
+    location: 'San Ramón',
     emoji: '💑',
     // images: Array.from({ length: 8 }, (_, i) => `https://picsum.photos/seed/p3_${i+1}/600/400`),
     images: Array.from({ length: 8 }, (_, i) => `images/3/${i+1}.png`),
@@ -50,7 +50,7 @@ const places = [
   {
     id: 4,
     name: 'Verde Escondido',
-    location: 'Naturaleza',
+    location: 'Poás',
     emoji: '🌿',
     // images: Array.from({ length: 8 }, (_, i) => `https://picsum.photos/seed/p4_${i+1}/600/400`),
     images: Array.from({ length: 8 }, (_, i) => `images/4/${i+1}.png`),
@@ -86,7 +86,7 @@ const places = [
   {
     id: 8,
     name: 'Glamping en Elysium',
-    location: 'Selva Tropical',
+    location: 'Cinchona',
     emoji: '🦜',
     // images: Array.from({ length: 8 }, (_, i) => `https://picsum.photos/seed/p8_${i+1}/600/400`),
     images: Array.from({ length: 8 }, (_, i) => `images/8/${i+1}.png`),
