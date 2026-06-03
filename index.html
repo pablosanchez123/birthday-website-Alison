@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Feliz Cumpleaños Alison! 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <div id="hearts" aria-hidden="true"></div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-bg-heart h1">♥</div>
+    <div class="hero-bg-heart h2">♥</div>
+    <div class="hero-bg-heart h3">♥</div>
+    <div class="hero-bg-heart h4">♥</div>
+    <div class="hero-inner">
+      <span class="eyebrow">Con todo mi amor 💕</span>
+      <h1 class="hero-title">¡Feliz Cumpleaños!</h1>
+      <p class="hero-name">Alison</p>
+      <p class="lead">que la pases super bién mi amorts<br/>te amo muchooo ❤️</p>
+      <a href="#lugares" class="scroll-cta">
+        <span>Ver las opciones</span>
+        <span class="cta-heart">♥</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Cards -->
+  <main id="lugares">
+    <div class="section-header">
+      <h2>Tu destino soñado te espera</h2>
+      <p class="section-sub">Toca el lugar que más te llame el corazón 💝</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- Love message -->
+  <section class="love-section" id="mensaje">
+    <div class="love-blobs" aria-hidden="true">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+    <div class="love-inner">
+      <div class="love-tag">Un mensaje especial 💌</div>
+      <div class="love-card">
+        <span class="love-ornament">❤</span>
+        <p class="love-line love-p1">
+          Te amo mucho mi amor, estoy muy feliz de acompañarte en tu cumpleaños y de formar parte de tu vida en estos momentos, espero que todos tus sueños se cumplan y que pueda estar yo contigo para verte cumplirlos y estar para ti en todo momento que lo necesites, soy de verdad muy feliz de ser tu novio y de que tú también formes parte de mi proceso.
+        </p>
+        <div class="love-divider" aria-hidden="true">♥ &nbsp; ♥ &nbsp; ♥</div>
+        <p class="love-line love-p2">
+          Eres el amor de mi vida y espero que vivamos muchas experiencias más juntos.<br/>
+          <em>Te amo muchísisisísisisimo ❤️</em>
+        </p>
+        <span class="love-ornament">❤</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Send bar -->
+  <div class="send-bar hidden" id="sendBar">
+    <div class="send-bar-inner">
+      <span class="chosen-label">💕 Elegiste: <strong id="chosenName"></strong></span>
+      <button class="btn-send" id="btnSend">Enviar mi elección 💌</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="overlay hidden" id="overlay">
+    <div class="modal">
+      <div class="modal-hearts">💕 💗 💕</div>
+      <h3>¡Enviado con amor!</h3>
+      <p id="modalMsg"></p>
+      <button class="btn-close" onclick="closeModal()">¡Perfecto! 🎉</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
