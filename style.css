@@ -596,4 +596,9 @@ main {
   .card.selected:hover  { transform: none; }
   .scroll-cta:hover     { transform: none; background: rgba(255,255,255,0.08); }
   .card-select:hover    { transform: none; }
+
+  /* Love section — sin animacion en movil, mostrar directo */
+  .love-p1      { clip-path: none; will-change: auto; }
+  .love-p2      { clip-path: none; will-change: auto; }
+  .love-divider { opacity: 1; will-change: auto; }
 }

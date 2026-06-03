@@ -11,9 +11,9 @@
 //       Lugar: {{place_location}}
 //  4. Pega tus credenciales aquí abajo
 // ═══════════════════════════════════════════════════════════
-const EMAILJS_PUBLIC_KEY  = 'TU_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'TU_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY  = 'O65sMmh6xke96jiHL';
+const EMAILJS_SERVICE_ID  = 'service_9ir8m29';
+const EMAILJS_TEMPLATE_ID = 'template_dvr7hpx';
 
 // ── Lugares ──────────────────────────────────────────────────
 // Para agregar tus fotos:
@@ -199,6 +199,9 @@ function initAnimations() {
 
 // ── Love section animations ───────────────────────────────────
 function initLoveSection() {
+  // On touch devices skip animations entirely — content is visible via CSS
+  if (window.matchMedia('(hover: none)').matches) return;
+
   // Set initial states
   gsap.set('.love-tag',  { opacity: 0, y: 28 });
   gsap.set('.love-card', { opacity: 0, scale: 0.95 });
