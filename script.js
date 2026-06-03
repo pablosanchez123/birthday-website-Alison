@@ -114,7 +114,7 @@ function renderCards() {
   document.getElementById('grid').innerHTML = places.map(p => {
     const slides = p.images.map((src, i) =>
       `<div class="swiper-slide">
-         <img src="${src}" alt="${p.name} foto ${i+1}" loading="${i === 0 ? 'eager' : 'lazy'}" />
+         <img src="${src}" alt="${p.name} foto ${i+1}" />
        </div>`
     ).join('');
 
@@ -177,16 +177,10 @@ function initAnimations() {
     opacity: 0, y: 55, duration: 0.9, ease: 'power3.out',
   });
 
-  // Cards — each one triggers individually
-  gsap.utils.toArray('.card').forEach((card, i) => {
-    gsap.from(card, {
-      scrollTrigger: { trigger: card, start: 'top 90%' },
-      opacity: 0,
-      y: 65,
-      duration: 0.75,
-      ease: 'power3.out',
-      delay: (i % 4) * 0.08,
-    });
+  // Cards stagger on load — sin ScrollTrigger para que nunca queden en opacity 0
+  gsap.from('.card', {
+    opacity: 0, y: 65, duration: 0.75, ease: 'power3.out',
+    stagger: 0.07, delay: 0.3,
   });
 }
 
