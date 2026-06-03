@@ -96,13 +96,12 @@ const places = [
 
 // ── Estado ────────────────────────────────────────────────────
 let selectedId = null;
-const swipers  = {};
+const galState = {};
 
 // ── Init ──────────────────────────────────────────────────────
 gsap.registerPlugin(ScrollTrigger);
 
 renderCards();
-initSwipers();
 initAnimations();
 initLoveSection();
 spawnHearts();
@@ -112,20 +111,22 @@ document.getElementById('btnSend').addEventListener('click', sendChoice);
 // ── Render cards ──────────────────────────────────────────────
 function renderCards() {
   document.getElementById('grid').innerHTML = places.map(p => {
-    const slides = p.images.map((src, i) =>
-      `<div class="swiper-slide">
-         <img src="${src}" alt="${p.name} foto ${i+1}" />
-       </div>`
+    galState[p.id] = 0;
+    const imgs = p.images.map((src, i) =>
+      `<img class="gallery-img${i === 0 ? ' active' : ''}" src="${src}" alt="${p.name} foto ${i+1}" />`
+    ).join('');
+    const dots = p.images.map((_, i) =>
+      `<button class="gal-dot${i === 0 ? ' active' : ''}" onclick="galGo(event,${p.id},${i})"></button>`
     ).join('');
 
     return `
       <div class="card" id="card-${p.id}">
         <div class="card-heart-badge" id="badge-${p.id}">♥</div>
-        <div class="swiper card-swiper" id="swiper-${p.id}">
-          <div class="swiper-wrapper">${slides}</div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
+        <div class="card-gallery" id="gallery-${p.id}">
+          ${imgs}
+          <button class="gal-btn gal-prev" onclick="galPrev(event,${p.id})">&#8249;</button>
+          <button class="gal-btn gal-next" onclick="galNext(event,${p.id})">&#8250;</button>
+          <div class="gal-dots">${dots}</div>
           <span class="card-location">${p.emoji} ${p.location}</span>
         </div>
         <div class="card-body">
@@ -141,19 +142,25 @@ function renderCards() {
   }).join('');
 }
 
-// ── Init Swipers ──────────────────────────────────────────────
-function initSwipers() {
-  places.forEach(p => {
-    swipers[p.id] = new Swiper(`#swiper-${p.id}`, {
-      loop: true,
-      speed: 600,
-      pagination: { el: `#swiper-${p.id} .swiper-pagination`, clickable: true },
-      navigation: {
-        prevEl: `#swiper-${p.id} .swiper-button-prev`,
-        nextEl: `#swiper-${p.id} .swiper-button-next`,
-      },
-    });
-  });
+// ── Carrusel propio ───────────────────────────────────────────
+function galGo(e, id, index) {
+  if (e) e.stopPropagation();
+  const gallery = document.getElementById(`gallery-${id}`);
+  gallery.querySelectorAll('.gallery-img')[galState[id]].classList.remove('active');
+  gallery.querySelectorAll('.gal-dot')[galState[id]].classList.remove('active');
+  galState[id] = index;
+  gallery.querySelectorAll('.gallery-img')[index].classList.add('active');
+  gallery.querySelectorAll('.gal-dot')[index].classList.add('active');
+}
+function galPrev(e, id) {
+  e.stopPropagation();
+  const len = places.find(p => p.id === id).images.length;
+  galGo(e, id, (galState[id] - 1 + len) % len);
+}
+function galNext(e, id) {
+  e.stopPropagation();
+  const len = places.find(p => p.id === id).images.length;
+  galGo(e, id, (galState[id] + 1) % len);
 }
 
 // ── GSAP Animations ───────────────────────────────────────────
