@@ -534,6 +534,89 @@ main {
   color: #fff;
 }
 
+/* ── Album / Polaroid section ────────────────────────────────── */
+.album-section {
+  background: linear-gradient(180deg, #fff0f7 0%, var(--pink-pale) 100%);
+  padding: 7rem 2rem 8rem;
+  position: relative;
+  z-index: 1;
+}
+.album-inner   { max-width: 1100px; margin: 0 auto; }
+.album-header  { text-align: center; margin-bottom: 3.5rem; }
+.album-tag {
+  display: inline-block;
+  background: rgba(194, 24, 91, 0.07);
+  border: 1.5px solid rgba(194, 24, 91, 0.18);
+  color: var(--pink-deep);
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.48rem 1.5rem; border-radius: 50px;
+  margin-bottom: 1rem;
+}
+.album-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  color: var(--pink-deep); font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.album-sub {
+  color: var(--text-muted); font-size: 1rem;
+  font-style: italic; font-weight: 300;
+}
+
+.polaroid-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.polaroid {
+  background: #fff;
+  padding: 10px 10px 52px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.11), 0 1px 3px rgba(0,0,0,0.06);
+  transform: rotate(var(--rot, 0deg));
+  transition: opacity 0.65s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  opacity: 0;
+  position: relative;
+  cursor: default;
+}
+.polaroid.visible { opacity: 1; }
+
+@media (hover: hover) {
+  .polaroid:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.17);
+    z-index: 5;
+  }
+}
+
+.polaroid-img {
+  width: 100%; aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--pink-pale);
+}
+.polaroid-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.4s ease;
+}
+@media (hover: hover) {
+  .polaroid:hover .polaroid-img img { transform: scale(1.06); }
+}
+
+.polaroid-caption {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.05rem;
+  color: #666;
+  text-align: center;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 8px;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 
 /* Tablet */
@@ -541,6 +624,8 @@ main {
   main          { padding: 4rem 1.25rem 7rem; }
   .love-section { padding: 6rem 1.25rem 7rem; }
   .section-header { margin-bottom: 2.5rem; }
+  .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .album-section { padding: 5rem 1.5rem 6rem; }
 }
 
 /* Mobile */
@@ -568,6 +653,13 @@ main {
   .modal        { padding: 2rem 1.25rem; }
   .modal h3     { font-size: 1.45rem; }
   .modal-hearts { font-size: 2rem; }
+
+  /* Album */
+  .album-section { padding: 4rem 1rem 5rem; }
+  .album-header  { margin-bottom: 2rem; }
+  .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .polaroid      { transform: none !important; padding: 8px 8px 44px; }
+  .polaroid-caption { font-size: 0.9rem; height: 44px; }
 
   /* Love section */
   .love-section  { padding: 5rem 1rem 6rem; }

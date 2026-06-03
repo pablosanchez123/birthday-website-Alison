@@ -94,6 +94,18 @@ const places = [
   },
 ];
 
+// ── Fotos de pareja ───────────────────────────────────────────
+const photos = [
+  { file: '0e46fae0-86dd-4a22-80b4-1237d322cc3d.jpg', caption: 'mis favoritos 💕',      rot: -3   },
+  { file: '32e49936-e831-4eb7-b307-56a7ff57b6cb.jpg', caption: 'para siempre',          rot:  2   },
+  { file: '51e63ea1-6515-46fc-b932-9c1488fcedfc.jpg', caption: 'tú y yo nada más',      rot: -2   },
+  { file: '66a08500-1c2e-4b1c-b438-58f3ee28db2e.jpg', caption: 'así de bonito',         rot:  3.5 },
+  { file: '9cd2d045-dbaa-404b-bbe2-914b296f1ef7.jpg', caption: 'feliz de tenerte',      rot: -3.5 },
+  { file: 'c655aa2f-a893-4aa4-afed-d995e741c3cf.jpg', caption: 'mi todo ❤️',            rot:  1.5 },
+  { file: 'd431533d-e162-490a-ba10-9ceef4ce88dc.jpg', caption: 'cada momento contigo',  rot: -1.5 },
+  { file: 'ff805409-fdb4-486a-9432-73713a68a41a.jpg', caption: 'te quiero tanto',       rot:  4   },
+];
+
 // ── Estado ────────────────────────────────────────────────────
 let selectedId = null;
 const galState = {};
@@ -102,6 +114,7 @@ const galState = {};
 gsap.registerPlugin(ScrollTrigger);
 
 renderCards();
+renderAlbum();
 initAnimations();
 initLoveSection();
 spawnHearts();
@@ -146,6 +159,31 @@ function renderCards() {
         </div>
       </div>`;
   }).join('');
+}
+
+// ── Album polaroid ────────────────────────────────────────────
+function renderAlbum() {
+  const grid = document.getElementById('polaroidGrid');
+  grid.innerHTML = photos.map(p => `
+    <div class="polaroid" style="--rot:${p.rot}deg">
+      <div class="polaroid-img">
+        <img src="images/fotos/${p.file}" alt="${p.caption}" loading="lazy" />
+      </div>
+      <p class="polaroid-caption">${p.caption}</p>
+    </div>
+  `).join('');
+
+  const items = grid.querySelectorAll('.polaroid');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const i = [...items].indexOf(entry.target);
+      setTimeout(() => entry.target.classList.add('visible'), i * 90);
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+
+  items.forEach(el => obs.observe(el));
 }
 
 // ── Carrusel propio ───────────────────────────────────────────
