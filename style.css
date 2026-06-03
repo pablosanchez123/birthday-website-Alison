@@ -510,6 +510,7 @@ main {
   color: rgba(255, 245, 250, 0.84);
   font-weight: 300;
   clip-path: inset(0 100% 0 0);  /* hidden — reveals left→right */
+  will-change: clip-path;
 }
 .love-divider {
   color: var(--pink);
@@ -517,6 +518,7 @@ main {
   letter-spacing: 0.6rem;
   margin: 2.2rem 0;
   opacity: 0;
+  will-change: opacity;
 }
 .love-p2 {
   font-size: 1.08rem;
@@ -524,6 +526,7 @@ main {
   color: var(--pink-light);
   font-weight: 400;
   clip-path: inset(0 0% 0 100%);  /* hidden — reveals right→left */
+  will-change: clip-path;
 }
 .love-p2 em {
   font-style: normal;
@@ -569,11 +572,13 @@ main {
   /* Love section */
   .love-section  { padding: 5rem 1rem 6rem; }
   .love-tag      { font-size: 0.72rem; letter-spacing: 0.14em; padding: 0.45rem 1.2rem; margin-bottom: 2rem; }
-  .love-card     { padding: 2.2rem 1.4rem; }
+  .love-card     { padding: 2.2rem 1.4rem; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .love-ornament { font-size: 1.6rem; margin-bottom: 1.4rem; }
   .love-p1       { font-size: 0.97rem; line-height: 1.85; }
   .love-divider  { margin: 1.6rem 0; }
-  .love-p2       { font-size: 1.25rem; }
+  .love-p2       { font-size: 1rem; }
+  /* Blobs con blur pesado matan la GPU movil — desactivar */
+  .blob          { display: none; }
 }
 
 /* Small phones */
