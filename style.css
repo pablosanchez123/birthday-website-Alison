@@ -573,7 +573,7 @@ main {
 
 .polaroid {
   background: #fff;
-  padding: 10px 10px 52px;
+  padding: 10px 10px 16px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.11), 0 1px 3px rgba(0,0,0,0.06);
   transform: rotate(var(--rot, 0deg));
   transition: opacity 0.65s ease, transform 0.35s ease, box-shadow 0.35s ease;
@@ -658,8 +658,7 @@ main {
   .album-section { padding: 4rem 1rem 5rem; }
   .album-header  { margin-bottom: 2rem; }
   .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .polaroid      { transform: none !important; padding: 8px 8px 44px; }
-  .polaroid-caption { font-size: 0.9rem; height: 44px; }
+  .polaroid      { transform: none !important; padding: 8px 8px 12px; }
 
   /* Love section */
   .love-section  { padding: 5rem 1rem 6rem; }

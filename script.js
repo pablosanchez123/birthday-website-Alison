@@ -169,7 +169,6 @@ function renderAlbum() {
       <div class="polaroid-img">
         <img src="images/fotos/${p.file}" alt="${p.caption}" loading="lazy" />
       </div>
-      <p class="polaroid-caption">${p.caption}</p>
     </div>
   `).join('');
 
