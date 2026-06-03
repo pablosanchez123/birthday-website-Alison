@@ -126,6 +126,7 @@ renderAlbum();
 initAnimations();
 initLoveSection();
 spawnHearts();
+startCounter();
 
 // Recalculate trigger positions after images finish loading
 // (images affect page height, which shifts ScrollTrigger offsets)
@@ -218,17 +219,18 @@ function galNext(e, id) {
 // ── GSAP Animations ───────────────────────────────────────────
 function initAnimations() {
   // Set initial state first, then animate in
-  gsap.set('.eyebrow',    { opacity: 0, y: 20 });
-  gsap.set(['.hero-title', '.lead', '.scroll-cta'], { opacity: 0, y: 40 });
-  gsap.set('.hero-name',  { opacity: 0, y: 40, scale: 0.92 });
+  gsap.set('.eyebrow',     { opacity: 0, y: 20 });
+  gsap.set(['.hero-title', '.lead', '.scroll-cta', '.counter-box'], { opacity: 0, y: 40 });
+  gsap.set('.hero-name',   { opacity: 0, y: 40, scale: 0.92 });
 
   // Hero entrance — staggered reveal
   gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 })
-    .to('.eyebrow',    { opacity: 1, y: 0, duration: 0.7 })
-    .to('.hero-title', { opacity: 1, y: 0, duration: 0.8 }, '-=0.35')
-    .to('.hero-name',  { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'back.out(1.4)' }, '-=0.45')
-    .to('.lead',       { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
-    .to('.scroll-cta', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+    .to('.eyebrow',     { opacity: 1, y: 0, duration: 0.7 })
+    .to('.hero-title',  { opacity: 1, y: 0, duration: 0.8 }, '-=0.35')
+    .to('.hero-name',   { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'back.out(1.4)' }, '-=0.45')
+    .to('.lead',        { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+    .to('.counter-box', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+    .to('.scroll-cta',  { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
 
   // Section header on scroll
   gsap.from('.section-header', {
@@ -345,6 +347,39 @@ async function sendChoice() {
 // ── Modal ──────────────────────────────────────────────────────
 function closeModal() {
   document.getElementById('overlay').classList.add('hidden');
+}
+
+// ── Relationship counter ───────────────────────────────────────
+function startCounter() {
+  const start = new Date('2025-10-26T21:00:00-06:00'); // 26 oct 2025 9pm Costa Rica
+
+  function update() {
+    const now = new Date();
+
+    // Months
+    let months = (now.getFullYear() - start.getFullYear()) * 12 +
+                 (now.getMonth() - start.getMonth());
+    const anchor = new Date(start);
+    anchor.setMonth(anchor.getMonth() + months);
+    if (anchor > now) months--;
+    anchor.setMonth(start.getMonth() + months);
+
+    // Remaining time after full months
+    const rem   = now - anchor;
+    const days  = Math.floor(rem / 864e5);
+    const hours = Math.floor((rem % 864e5) / 36e5);
+    const mins  = Math.floor((rem % 36e5) / 6e4);
+    const secs  = Math.floor((rem % 6e4) / 1e3);
+
+    document.getElementById('cnt-months').textContent = months;
+    document.getElementById('cnt-days').textContent   = days;
+    document.getElementById('cnt-hours').textContent  = hours;
+    document.getElementById('cnt-mins').textContent   = String(mins).padStart(2, '0');
+    document.getElementById('cnt-secs').textContent   = String(secs).padStart(2, '0');
+  }
+
+  update();
+  setInterval(update, 1000);
 }
 
 // ── Floating hearts ────────────────────────────────────────────

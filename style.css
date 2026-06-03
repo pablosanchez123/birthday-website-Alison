@@ -152,6 +152,64 @@ body {
   70%       { transform: scale(1);    }
 }
 
+/* ── Relationship counter ────────────────────────────────── */
+.counter-box {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(248, 187, 217, 0.3);
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+}
+.counter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pink-light);
+  margin-bottom: 0.65rem;
+}
+.counter-digits {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.counter-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 36px;
+}
+.counter-unit span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.counter-unit small {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(248, 187, 217, 0.7);
+}
+.counter-sep {
+  color: var(--pink-light);
+  font-size: 1.2rem;
+  opacity: 0.4;
+  margin-bottom: 0.8rem;
+}
+@media (max-width: 580px) {
+  .counter-box    { padding: 0.8rem 1.2rem; }
+  .counter-unit span { font-size: 1.25rem; }
+  .counter-digits { gap: 0.4rem; }
+  .counter-unit   { min-width: 28px; }
+}
+
 /* ── Section header ──────────────────────────────────────── */
 main {
   padding: 6rem 2.5rem 10rem;
