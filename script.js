@@ -351,20 +351,38 @@ function closeModal() {
 
 // ── Relationship counter ───────────────────────────────────────
 function startCounter() {
-  const start = new Date('2025-10-26T21:00:00-06:00'); // 26 oct 2025 9pm Costa Rica
+  const start = new Date('2025-10-26T21:00:00-06:00');
 
   function update() {
     const now = new Date();
 
-    // Months
+    // Count complete months elapsed
     let months = (now.getFullYear() - start.getFullYear()) * 12 +
                  (now.getMonth() - start.getMonth());
-    const anchor = new Date(start);
-    anchor.setMonth(anchor.getMonth() + months);
-    if (anchor > now) months--;
-    anchor.setMonth(start.getMonth() + months);
 
-    // Remaining time after full months
+    // Build anchor = exact same day/time as start, N months later
+    let anchor = new Date(
+      start.getFullYear(),
+      start.getMonth() + months,
+      start.getDate(),
+      start.getHours(),
+      start.getMinutes(),
+      start.getSeconds()
+    );
+
+    // If anchor is still in the future, we haven't completed that month yet
+    if (anchor > now) {
+      months--;
+      anchor = new Date(
+        start.getFullYear(),
+        start.getMonth() + months,
+        start.getDate(),
+        start.getHours(),
+        start.getMinutes(),
+        start.getSeconds()
+      );
+    }
+
     const rem   = now - anchor;
     const days  = Math.floor(rem / 864e5);
     const hours = Math.floor((rem % 864e5) / 36e5);

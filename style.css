@@ -204,10 +204,13 @@ body {
   margin-bottom: 0.8rem;
 }
 @media (max-width: 580px) {
-  .counter-box    { padding: 0.8rem 1.2rem; }
-  .counter-unit span { font-size: 1.25rem; }
-  .counter-digits { gap: 0.4rem; }
-  .counter-unit   { min-width: 28px; }
+  .counter-box      { padding: 0.85rem 1.4rem; margin-bottom: 1.5rem; }
+  .counter-digits   { flex-wrap: wrap; justify-content: center; gap: 0.3rem 0.5rem; }
+  .counter-unit     { min-width: 40px; }
+  .counter-unit span { font-size: 1.35rem; }
+  .counter-sep      { font-size: 0.9rem; margin-bottom: 0.7rem; }
+  /* hide some separators to keep it clean on 2 rows */
+  .counter-sep:nth-child(4) { display: none; }
 }
 
 /* ── Section header ──────────────────────────────────────── */
