@@ -106,6 +106,12 @@ initAnimations();
 initLoveSection();
 spawnHearts();
 
+// Recalculate trigger positions after images finish loading
+// (images affect page height, which shifts ScrollTrigger offsets)
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
+
 document.getElementById('btnSend').addEventListener('click', sendChoice);
 
 // ── Render cards ──────────────────────────────────────────────
@@ -199,34 +205,34 @@ function initLoveSection() {
 
   // Badge label reveal
   gsap.to('.love-tag', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 78%' },
+    scrollTrigger: { trigger: '.love-section', start: 'top 95%', once: true },
     opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
   });
 
   // Card fade-scale in
   gsap.to('.love-card', {
-    scrollTrigger: { trigger: '.love-card', start: 'top 82%' },
+    scrollTrigger: { trigger: '.love-section', start: 'top 90%', once: true },
     opacity: 1, scale: 1, duration: 1, ease: 'power3.out', delay: 0.15,
   });
 
   // First paragraph — curtain opens left → right
   gsap.to('.love-p1', {
-    scrollTrigger: { trigger: '.love-p1', start: 'top 88%' },
+    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
     clipPath: 'inset(0 0% 0 0)',
     duration: 1.5, ease: 'power3.inOut', delay: 0.35,
   });
 
   // Divider hearts fade in
   gsap.to('.love-divider', {
-    scrollTrigger: { trigger: '.love-divider', start: 'top 90%' },
-    opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.1,
+    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
+    opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.8,
   });
 
   // Second paragraph — curtain opens right → left
   gsap.to('.love-p2', {
-    scrollTrigger: { trigger: '.love-p2', start: 'top 90%' },
+    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
     clipPath: 'inset(0 0% 0 0%)',
-    duration: 1.6, ease: 'power3.inOut', delay: 0.2,
+    duration: 1.6, ease: 'power3.inOut', delay: 1.1,
   });
 }
 
