@@ -203,37 +203,15 @@ function initLoveSection() {
   gsap.set('.love-tag',  { opacity: 0, y: 28 });
   gsap.set('.love-card', { opacity: 0, scale: 0.95 });
 
-  // Badge label reveal
-  gsap.to('.love-tag', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 95%', once: true },
-    opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: '.love-section', start: 'top bottom', once: true },
   });
 
-  // Card fade-scale in
-  gsap.to('.love-card', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 90%', once: true },
-    opacity: 1, scale: 1, duration: 1, ease: 'power3.out', delay: 0.15,
-  });
-
-  // First paragraph — curtain opens left → right
-  gsap.to('.love-p1', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
-    clipPath: 'inset(0 0% 0 0)',
-    duration: 1.5, ease: 'power3.inOut', delay: 0.35,
-  });
-
-  // Divider hearts fade in
-  gsap.to('.love-divider', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
-    opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.8,
-  });
-
-  // Second paragraph — curtain opens right → left
-  gsap.to('.love-p2', {
-    scrollTrigger: { trigger: '.love-section', start: 'top 85%', once: true },
-    clipPath: 'inset(0 0% 0 0%)',
-    duration: 1.6, ease: 'power3.inOut', delay: 1.1,
-  });
+  tl.to('.love-tag',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    .to('.love-card',    { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, '-=0.3')
+    .to('.love-p1',      { clipPath: 'inset(0 0% 0 0)', duration: 1.4, ease: 'power3.inOut' }, '-=0.4')
+    .to('.love-divider', { opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.4')
+    .to('.love-p2',      { clipPath: 'inset(0 0% 0 0%)', duration: 1.4, ease: 'power3.inOut' }, '-=0.3');
 }
 
 // ── Select card ───────────────────────────────────────────────
